@@ -1,0 +1,7 @@
+project              | capa sane | capa leaky | inv sane | inv leaky | capaDisc | invDisc
+---------------------+-----------+------------+----------+-----------+----------+--------
+capa_paymentguard    | PASS      | FAIL       | 6        | 6         | yes      | no
+capa_dataguard       | PASS      | FAIL       | 6        | 6         | yes      | no
+capa_supplygate      | PASS      | FAIL       | 3        | 3         | yes      | no
+capa_configbroker    | PASS      | FAIL       | 3        | 3         | yes      | no
+capa_licenseaudit    | PASS      | FAIL       | 3        | 3         | yes      | no

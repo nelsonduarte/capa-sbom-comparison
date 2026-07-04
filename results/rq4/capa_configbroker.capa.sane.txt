@@ -1,0 +1,1 @@
+configbroker.capa: ok (44 items, 1006 expressions typed, 467 bindings)

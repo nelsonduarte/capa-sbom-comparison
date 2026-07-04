@@ -1,0 +1,17 @@
+leaky_supplygate.capa:33:37: error: information-flow: a @secret value reaches Fs.write (argument 2), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  33 |     match fs.write("out/gate.json", line)
+                                           ^
+
+leaky_supplygate.capa:42:38: error: information-flow: a @secret value reaches Fs.write (argument 2), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  42 |     match fs.write("out/report.txt", "auth: ${header}\n")
+                                            ^
+
+leaky_supplygate.capa:50:19: error: information-flow: a @secret value reaches Stdio.println (argument 1), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  50 |     stdio.println("using feed token ${creds.token}")
+                         ^
+
+leaky_supplygate.capa:58:18: error: information-flow: a @secret value is passed to 'StdioLogger.error' as message, which reaches a public sink inside 'StdioLogger.error' (it sends data out of the program). Route it through declassify(value, reason: "...") if this disclosure is intended.
+  58 |     logger.error("feed token is ${creds.token}")
+                        ^
+
+leaky_supplygate.capa: 4 errors

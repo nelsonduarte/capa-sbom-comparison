@@ -1,0 +1,13 @@
+leaky_licenseaudit.capa:28:11: error: capability 'ReadOnlyFs' has no method 'write'
+  28 |     match ro.write("data/violating_repo/dependencies.lock.csv", "name,version,license,ecosystem\n")
+                 ^
+
+leaky_licenseaudit.capa:36:11: error: capability 'ReadOnlyFs' has no method 'write'
+  36 |     match ro.write("data/policy.csv", "spdx,disposition,category,note\nGPL-3.0,allow,permissive,laundered\n")
+                 ^
+
+leaky_licenseaudit.capa:44:11: error: capability 'ReadOnlyFs' has no method 'remove'
+  44 |     match ro.remove("data/osv.csv")
+                 ^
+
+leaky_licenseaudit.capa: 3 errors

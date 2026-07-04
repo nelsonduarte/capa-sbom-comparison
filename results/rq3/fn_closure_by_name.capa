@@ -1,0 +1,22 @@
+// fn_closure_by_name.capa
+//
+// The documented, deliberate FALSE NEGATIVE of the information-flow
+// analyzer. A @secret value is captured by a lambda, the lambda is
+// passed BY NAME through a Fun-typed parameter, and called at a public
+// sink. The direct form (see the `control` in rq3_eval.sh) is rejected
+// under @strict_ifc; this closure-by-name shape is ACCEPTED, and the
+// secret really reaches stdout at runtime.
+//
+// It is kept as a deliberate false negative because closing it would
+// introduce false positives, and the project's stated posture is that a
+// false positive is the worse failure (see the soundness advisory).
+type Rec { secret: @secret String }
+
+@strict_ifc()
+fun run(f: Fun() -> String, stdio: Stdio)
+    stdio.println(f())
+
+fun main(stdio: Stdio)
+    let r = Rec { secret: "sensitive" }
+    let leak = fun () -> String => r.secret
+    run(leak, stdio)

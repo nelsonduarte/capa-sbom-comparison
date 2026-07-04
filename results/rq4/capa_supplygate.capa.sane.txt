@@ -1,0 +1,1 @@
+supplygate.capa: ok (57 items, 929 expressions typed, 516 bindings)

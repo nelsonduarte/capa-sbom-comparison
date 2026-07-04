@@ -1,0 +1,13 @@
+leaky_example.capa:23:19: warning: information-flow: a @secret value reaches Stdio.println (argument 1), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  23 |     stdio.println("processing card ${card.pan}")
+                         ^
+
+leaky_example.capa:34:20: warning: information-flow: a @secret value reaches Stdio.eprintln (argument 1), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  34 |     stdio.eprintln("cvv was ${card.cvv}")
+                          ^
+
+leaky_example.capa:30:19: error: information-flow: a @secret value reaches Stdio.println (argument 1), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  30 |     stdio.println("debug PAN=${card.pan}")
+                         ^
+
+leaky_example.capa: 1 error

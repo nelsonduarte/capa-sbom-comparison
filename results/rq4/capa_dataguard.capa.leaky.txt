@@ -1,0 +1,13 @@
+leaky_dataguard.capa:30:38: error: information-flow: a @secret value reaches Fs.write (argument 2), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  30 |     match fs.write("out/report.txt", line)
+                                            ^
+
+leaky_dataguard.capa:38:19: error: information-flow: a @secret value reaches Stdio.println (argument 1), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  38 |     stdio.println("processing citizen ${r.national_id}")
+                         ^
+
+leaky_dataguard.capa:44:38: error: information-flow: a @secret value reaches Fs.write (argument 2), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  44 |     match fs.write("out/report.txt", "iban=${r.iban}\n")
+                                            ^
+
+leaky_dataguard.capa: 3 errors

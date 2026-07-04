@@ -1,0 +1,1 @@
+licenseaudit.capa: ok (77 items, 1430 expressions typed, 813 bindings)
