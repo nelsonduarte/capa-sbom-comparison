@@ -1,0 +1,4 @@
+date: 2026-07-04T14:51:08Z
+syft:   1.46.0
+cdxgen: Runtime: Node.js, Version: 25.1.0
+capa:   capa 1.15.1

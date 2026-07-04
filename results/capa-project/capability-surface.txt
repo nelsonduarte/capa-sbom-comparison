@@ -1,0 +1,11 @@
+program              : main.capa
+capa_version         : 1.15.1
+functions analyzed   : 70
+user_defined_caps    : []
+
+entry point          : main  (main.capa:168:5)
+  declared           : ['Fs', 'Stdio']
+  transitively used  : ['Fs', 'Stdio']
+  PROVABLY EXCLUDED   : ['Clock', 'Db', 'Env', 'Net', 'Proc', 'Random', 'Unsafe']
+
+program-wide reachable authority : ['Fs', 'Stdio']

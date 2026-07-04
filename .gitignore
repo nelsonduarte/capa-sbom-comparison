@@ -1,0 +1,7 @@
+# regenerable large / noisy artifacts
+results/**/syft.full.json
+results/**/*.log
+node_modules/
+.venv/
+__pycache__/
+*.pyc

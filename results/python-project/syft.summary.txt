@@ -1,0 +1,22 @@
+syft components: 1216
+sample (first 20):
+  - .NET Host Policy - 10.0.0
+  - .NET Host Policy - 10.0.0
+  - .NET Host Resolver - 10.0.0
+  - .NET Host Resolver - 10.0.0
+  - .NET Runtime 10,0,25,52411
+  - .NET Runtime 10,0,25,52411
+  - .NET Runtime Crash Dump Generator 10,0,25,52411
+  - .NET Runtime Crash Dump Generator 10,0,25,52411
+  - .NET Runtime Debugging Services 10,0,25,52411
+  - .NET Runtime Debugging Services 10,0,25,52411
+  - .NET Runtime External Data Access Support 10,0,25,52411
+  - .NET Runtime External Data Access Support 10,0,25,52411
+  - .NET Runtime External Data Access Support 10,0,25,52411
+  - .NET Runtime External Data Access Support 10,0,25,52411
+  - .NET Runtime Just-In-Time Compiler 10,0,25,52411
+  - .NET Runtime Just-In-Time Compiler 10,0,25,52411
+  - .NET Runtime Standalone GC 10,0,25,52411
+  - .NET Runtime Standalone GC 10,0,25,52411
+  - .NET Runtime Standalone GC 10,0,25,52411
+  - .NET Runtime Standalone GC 10,0,25,52411
