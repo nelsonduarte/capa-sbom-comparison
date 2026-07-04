@@ -1,0 +1,6 @@
+actions/attest-build-provenance@v1
+actions/attest-build-provenance@v1
+actions/checkout@v4
+actions/checkout@v4
+softprops/action-gh-release@v2
+softprops/action-gh-release@v2

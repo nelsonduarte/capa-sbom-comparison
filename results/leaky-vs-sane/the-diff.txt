@@ -1,0 +1,4 @@
+53c53
+<     return "  ${token}  region=${r.region} plan=${r.plan} month=${signup_month(r)} value=${money(r.amount_cents)}\n"
+---
+>     return "  ${r.email}  region=${r.region} plan=${r.plan} month=${signup_month(r)} value=${money(r.amount_cents)}\n"

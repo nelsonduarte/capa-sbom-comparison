@@ -66,6 +66,32 @@ In fairness: point the scanners at something they are built for.
 never touch, and a real supply-chain program needs that inventory. What
 they cannot do is state what the shipped code is *allowed* to do.
 
+## Can a tool tell a leaky release from a sane one?
+
+The sharper experiment. Two releases of the same product (`capa_dataguard`)
+that differ in **one line**: a subject line in the public report carries the
+audited pseudonym token (sane) or the raw `@secret` email (leaky). Same
+dependencies, same file names, same module graph. Full outputs are in
+[`results/leaky-vs-sane/`](results/leaky-vs-sane/); rebuild with
+`./leaky_vs_sane.sh <path-to-capa_dataguard>`.
+
+| tool | sane | leaky | told them apart? |
+|------|------|-------|------------------|
+| syft | 6 components | 6 components | **no** - identical inventory |
+| cdxgen | 0 components | 0 components | **no** - identical inventory |
+| capa (default tier) | ok, 0 warnings | ok, **3 warnings** naming the flow | **yes** - the artifact differs |
+| capa (strict tier) | compiles | **refuses to compile** | **yes** - a hard gate |
+
+A package-inventory scanner reads the dependency manifest, not the code, so it
+emits the identical SBOM whether or not the release exfiltrates a secret. Capa
+reads the flow. Under the strict enforcement tier the leaky release is rejected:
+
+```
+dataguard.capa:67:42: error: information-flow: a @secret value reaches Fs.write
+(argument 2), a public sink that sends data out of the program. Route it through
+declassify(value, reason: "...") if this disclosure is intended.
+```
+
 ## Side by side
 
 | dimension | syft | cdxgen | capa |

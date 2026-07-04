@@ -1,0 +1,13 @@
+dataguard.capa:100:27: warning: information-flow: a @secret value reaches Stdio.println (argument 1), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+ 100 |             stdio.println("processed ${count} records")
+                                 ^
+
+dataguard.capa:105:28: warning: information-flow: a @secret value reaches Stdio.eprintln (argument 1), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+ 105 |             stdio.eprintln("pipeline failed: ${data_error_message(e)}")
+                                  ^
+
+dataguard.capa:67:42: error: information-flow: a @secret value reaches Fs.write (argument 2), a public sink that sends data out of the program. Route it through declassify(value, reason: "...") if this disclosure is intended.
+  67 |     match fs_out.write("out/report.txt", report_body)
+                                                ^
+
+dataguard.capa: 1 error
