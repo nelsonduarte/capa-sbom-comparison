@@ -92,6 +92,76 @@ dataguard.capa:67:42: error: information-flow: a @secret value reaches Fs.write
 declassify(value, reason: "...") if this disclosure is intended.
 ```
 
+## Analyzer coverage and precision
+
+Does the analyzer accept the programs meant to be valid and reject the
+intended violations, and with what false-positive / false-negative profile?
+Run `capa --check` over the whole corpus and every deliberate negative.
+Regenerate with [`./rq3_eval.sh`](rq3_eval.sh) and
+[`./rq3_diagnostics.sh`](rq3_diagnostics.sh); full output in
+[`results/rq3/`](results/rq3/).
+
+**Coverage.**
+
+| Program set | Programs | Accepted | Rejected | Expected |
+|-------------|---------:|---------:|---------:|----------|
+| Valid corpus | 198 | **198** | 0 | all accepted |
+| Deliberate negatives | 4 | 0 | **4** | verified rejected |
+| claimdesk negatives | 7 | 0 | **7** | verified rejected |
+| leaky_* variants (5 projects) | 5 | 0 | **5** | verified rejected |
+
+**Precision, by discipline.**
+
+| Discipline | Negatives | Rejected | FN | Representative diagnostic |
+|------------|----------:|---------:|---:|---------------------------|
+| Capability (undeclared authority) | 2 | 2 | 0 | `undefined name 'fs'` / `no method 'write'` |
+| Linearity (consume / alias) | 4 | 4 | 0 | `capability was consumed earlier` |
+| Typestate | 2 | 2 | 0 | `expects Claim[UnderReview], got Claim[Draft]` |
+| Information flow (`@secret`) | 7 | 7 | **1** | `@secret value reaches public sink` |
+
+**Diagnostic categories** (each negative triggers the specific, correct
+diagnostic, not an accidental rejection):
+
+| Diagnostic category | Negatives | FP | FN |
+|---------------------|----------:|---:|---:|
+| capability in a data position | 1 | 0 | 0 |
+| attenuated capability lacks method | 1 | 0 | 0 |
+| capability aliased within one call | 1 | 0 | 0 |
+| linear value consumed twice | 3 | 0 | 0 |
+| linear value dropped | 1 | 0 | 0 |
+| illegal typestate transition | 1 | 0 | 0 |
+| secret reaches public sink | 6 | 0 | 1 |
+| secret in control flow | 1 | 0 | 0 |
+| type mismatch | 1 | 0 | 0 |
+
+**False positives: 0** (all 198 valid programs accepted).
+**False negatives: 1** — the closure-by-name shape, kept as a deliberate
+residual because closing it would introduce false positives. It is not just
+cited but reproduced: [`results/rq3/fn_closure_by_name.capa`](results/rq3/fn_closure_by_name.capa)
+is accepted by `--check` yet leaks a `@secret` to stdout at runtime.
+(`errors.capa` is a base type-checking negative, rejected, outside the four
+security disciplines.)
+
+## Decision fidelity: capability gate vs inventory gate
+
+Can a CI gate consume the artifacts to distinguish a sane build from a
+compromised one? For five sane/leaky pairs, does each approach pass the sane
+build and reject the leaky one? Regenerate with
+[`./rq4_fidelity.sh`](rq4_fidelity.sh); output in [`results/rq4/`](results/rq4/).
+
+| pair | capa sane | capa leaky | inv sane | inv leaky | capa discriminates | inv discriminates |
+|------|-----------|------------|---------:|----------:|--------------------|-------------------|
+| paymentguard | PASS | FAIL | 6 | 6 | **yes** | no |
+| dataguard | PASS | FAIL | 6 | 6 | **yes** | no |
+| supplygate | PASS | FAIL | 3 | 3 | **yes** | no |
+| configbroker | PASS | FAIL | 3 | 3 | **yes** | no |
+| licenseaudit | PASS | FAIL | 3 | 3 | **yes** | no |
+| **Fidelity** | | | | | **5/5** | **0/5** |
+
+The capability approach certifies the sane pipeline and the analyzer rejects
+the leaky module on every pair; syft emits an identical inventory for both
+members of each pair, so an inventory gate gives the same decision for both.
+
 ## Side by side
 
 | dimension | syft | cdxgen | capa |
